@@ -15,35 +15,26 @@ export default function Home() {
     "name": "Reob Sustainable Audio",
     "description": "Premium, handcrafted sustainable audio products featuring reclaimed materials and high-fidelity Japanese engineering.",
     "url": "https://reob-audio.com",
-    "logo": "https://reob-audio.com/logo.png",
-    "sameAs": [
-      "https://instagram.com/reobaudio",
-      "https://twitter.com/reobaudio"
-    ],
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "telephone": "+1-800-REOB-SOUND",
-      "contactType": "Customer Service"
-    }
+    "logo": "https://reob-audio.com/logo.png"
   };
 
   return (
-    <div className="relative min-h-screen" ref={containerRef}>
+    <div className="relative min-h-screen bg-[#faf9f6]" ref={containerRef}>
       <Navbar />
       <div className="fixed inset-0 noise-overlay pointer-events-none" />
-      
+
       {/* SEO Structured Data */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
       />
 
-      <main>
+      <main className="perspective-1000">
         {/* Hero Section */}
-        <section className="relative h-screen flex items-center justify-center px-6 overflow-hidden bg-[#faf9f6]">
+        <section className="relative h-screen flex items-center justify-center px-6 overflow-hidden bg-[#faf9f6] transform-3d">
           <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, rotateX: -20, y: 50, scale: 0.9 }}
+            animate={{ opacity: 1, rotateX: 0, y: 0, scale: 1 }}
             transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
             className="text-center space-y-8 z-10"
           >
@@ -57,7 +48,7 @@ export default function Home() {
               The pinnacle of acoustic engineering, handcrafted in limited editions.
             </p>
             <div className="flex flex-col md:flex-row items-center justify-center gap-10 pt-10">
-              <Link href="/collection/reob-one" className="reob-button uppercase text-[10px] font-bold tracking-widest bg-[#2c2c2c] text-[#faf9f6] px-12 py-5 rounded-full hover:scale-105 transition-transform shadow-2xl text-center">
+              <Link href="/collection" className="reob-button uppercase text-[10px] font-bold tracking-widest bg-[#2c2c2c] text-[#faf9f6] px-12 py-5 rounded-full hover:scale-105 transition-transform shadow-2xl">
                 Explore the Series
               </Link>
               <button className="flex items-center gap-3 text-[10px] uppercase tracking-widest font-bold reob-link group text-[#2c2c2c]">
@@ -83,26 +74,35 @@ export default function Home() {
         </section>
 
         {/* Feature Highlights */}
-        <section className="py-40 px-6 bg-[#2c2c2c] text-[#faf9f6]">
-          <div className="max-w-7xl mx-auto space-y-32">
-            <div className="max-w-3xl space-y-8">
+        <section className="py-40 px-6 bg-[#2c2c2c] text-[#faf9f6] perspective-2000 overflow-hidden">
+          <div className="max-w-7xl mx-auto space-y-32 transform-3d">
+            <motion.div 
+              initial={{ opacity: 0, rotateX: 15, y: 40 }}
+              whileInView={{ opacity: 1, rotateX: 0, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1 }}
+              className="max-w-3xl space-y-8"
+            >
               <h2 className="text-5xl md:text-7xl font-serif italic leading-tight">Engineered for <br /> <span className="font-light">Uncompromised Fidelity.</span></h2>
               <p className="text-xl opacity-60 font-light leading-relaxed">
                 We combine traditional Japanese woodworking with cutting-edge psychoacoustic research to create products that feel as good as they sound.
               </p>
-            </div>
+            </motion.div>
             <div className="grid md:grid-cols-3 gap-20">
               <Feature 
+                delay={0.1}
                 icon={<Mic2 className="w-6 h-6" />}
                 title="Acoustic Purity"
                 desc="Laboratory-grade frequency response curves, tuned for emotional resonance and spatial clarity."
               />
               <Feature 
+                delay={0.2}
                 icon={<Cpu className="w-6 h-6" />}
                 title="Digital Fidelity"
                 desc="Next-generation lossless transmission protocols ensuring uncompromised sound across any device."
               />
               <Feature 
+                delay={0.3}
                 icon={<Globe className="w-6 h-6" />}
                 title="Ethical Origin"
                 desc="100% traceable supply chain, from the reclaimed walnut groves to our final calibration studio."
@@ -112,12 +112,13 @@ export default function Home() {
         </section>
 
         {/* Product Focus Section */}
-        <section className="py-40 px-6 md:px-12 overflow-hidden bg-white">
-          <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-32 items-center">
+        <section className="py-40 px-6 md:px-12 overflow-hidden bg-[#faf9f6] perspective-1000">
+          <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-32 items-center transform-3d">
             <motion.div 
-              initial={{ opacity: 0, x: -40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1 }}
+              initial={{ opacity: 0, rotateY: -20, x: -50 }}
+              whileInView={{ opacity: 1, rotateY: 0, x: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 1.2, ease: "easeOut" }}
               className="space-y-12"
             >
               <div className="space-y-4">
@@ -135,7 +136,13 @@ export default function Home() {
                 Explore the Craft
               </Link>
             </motion.div>
-            <div className="relative aspect-[4/5] bg-[#faf9f6] rounded-3xl overflow-hidden group border border-[#2c2c2c]/5 shadow-2xl">
+            <motion.div 
+              initial={{ opacity: 0, rotateY: 20, x: 50 }}
+              whileInView={{ opacity: 1, rotateY: 0, x: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
+              className="relative aspect-[4/5] bg-[#2c2c2c]/5 rounded-3xl overflow-hidden group border border-[#2c2c2c]/5 shadow-2xl"
+            >
               <img 
                 src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=1500" 
                 alt="Reob One Flagship"
@@ -144,7 +151,7 @@ export default function Home() {
               <div className="absolute inset-0 bg-[#2c2c2c]/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
                 <Link href="/collection/reob-one" className="reob-button text-[#faf9f6] border-[#faf9f6]">View Product</Link>
               </div>
-            </div>
+            </motion.div>
           </div>
         </section>
 
@@ -192,15 +199,21 @@ export default function Home() {
   );
 }
 
-function Feature({ icon, title, desc }: { icon: React.ReactNode, title: string, desc: string }) {
+function Feature({ icon, title, desc, delay = 0 }: { icon: React.ReactNode, title: string, desc: string, delay?: number }) {
   return (
-    <div className="space-y-6 text-center md:text-left group">
+    <motion.div 
+      initial={{ opacity: 0, rotateY: -30, x: -20 }}
+      whileInView={{ opacity: 1, rotateY: 0, x: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 1, delay, ease: "easeOut" }}
+      className="space-y-6 text-center md:text-left group"
+    >
       <div className="w-12 h-12 rounded-full border border-[#faf9f6]/20 flex items-center justify-center group-hover:bg-[#faf9f6] group-hover:text-[#2c2c2c] transition-all duration-500">
         {icon}
       </div>
       <h3 className="text-2xl font-serif italic">{title}</h3>
       <p className="text-sm opacity-50 leading-relaxed">{desc}</p>
-    </div>
+    </motion.div>
   );
 }
 

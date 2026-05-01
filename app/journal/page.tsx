@@ -56,23 +56,31 @@ export default function Journal() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
       />
 
-      <main className="pt-60 pb-32 px-6 md:px-12">
-        <div className="max-w-7xl mx-auto space-y-32">
+      <main className="pt-60 pb-32 px-6 md:px-12 perspective-1000">
+        <div className="max-w-7xl mx-auto space-y-32 transform-3d">
           <header className="max-w-3xl space-y-12">
-            <h1 className="text-7xl md:text-9xl font-serif leading-none uppercase tracking-tighter">The <br /> <span className="italic font-light">Journal.</span></h1>
-            <p className="text-xl md:text-2xl opacity-60 leading-relaxed font-light">
+            <motion.h1 
+              initial={{ opacity: 0, rotateX: -20, y: 30 }}
+              whileInView={{ opacity: 1, rotateX: 0, y: 0 }}
+              viewport={{ once: true }}
+              className="text-7xl md:text-9xl font-serif leading-none uppercase tracking-tighter text-[#2c2c2c]"
+            >
+              The <br /> <span className="italic font-light">Journal.</span>
+            </motion.h1>
+            <p className="text-xl md:text-2xl opacity-60 leading-relaxed font-light text-[#2c2c2c]">
               Deep dives into acoustics, sustainability, and the intersection of technology and art.
             </p>
           </header>
 
-          <div className="grid gap-px bg-current/10 border border-current/10 rounded-3xl overflow-hidden shadow-2xl">
+          <div className="grid gap-20 transform-3d">
             {articles.map((article, i) => (
               <motion.article 
                 key={article.slug}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                className="bg-current text-current invert p-12 md:p-24 flex flex-col lg:flex-row gap-20 group cursor-pointer hover:bg-current hover:text-current hover:invert-0 transition-all duration-700"
+                initial={{ opacity: 0, rotateX: 10, y: 40 }}
+                whileInView={{ opacity: 1, rotateX: 0, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ delay: i * 0.1, duration: 1 }}
+                className="p-12 md:p-24 flex flex-col lg:flex-row gap-20 group cursor-pointer bg-white rounded-3xl border border-[#2c2c2c]/5 shadow-sm hover:shadow-2xl transition-all duration-700 transform-3d"
               >
                 <div className="lg:w-1/2 aspect-video rounded-2xl overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-700 shadow-lg">
                   <img src={article.image} alt={article.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />

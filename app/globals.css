@@ -16,7 +16,7 @@
   }
 
   body {
-    @apply font-sans transition-colors duration-1000;
+    @apply font-sans bg-[#faf9f6] text-[#2c2c2c];
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -30,7 +30,7 @@
   }
 
   .reob-button {
-    @apply inline-flex items-center justify-center px-10 py-4 border border-current transition-all duration-700 hover:bg-[#2c2c2c] hover:text-[#faf9f6];
+    @apply inline-flex items-center justify-center px-10 py-4 border border-[#2c2c2c] transition-all duration-700 hover:bg-[#2c2c2c] hover:text-[#faf9f6];
   }
 }
 
@@ -38,45 +38,28 @@
   background-image: url("https://grainy-gradients.vercel.app/noise.svg");
   opacity: 0.04;
   pointer-events: none;
-  mix-blend-mode: overlay;
+  mix-blend-mode: multiply;
   position: fixed;
   inset: 0;
   z-index: 100;
 }
 
 .text-outline {
-  -webkit-text-stroke: 1px currentColor;
+  -webkit-text-stroke: 1px #2c2c2c;
   color: transparent;
 }
 
-/* Atmosphere Styles */
-body[data-atmosphere="studio"] {
-  background-color: #1a1a1a;
-  color: #faf9f6;
+/* 3D Perspective Utilities */
+.perspective-1000 {
+  perspective: 1000px;
 }
 
-body[data-atmosphere="studio"] .noise-overlay {
-  opacity: 0.08;
+.perspective-2000 {
+  perspective: 2000px;
 }
 
-body[data-atmosphere="nature"] {
-  background-color: #f0f2ed;
-  color: #2c3e2d;
-}
-
-body[data-atmosphere="nature"] .noise-overlay {
-  background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
-  opacity: 0.1;
-}
-
-body[data-atmosphere="home"] {
-  background-color: #faf9f6;
-  color: #2c2c2c;
-}
-
-/* 3D Container Shadow */
-.canvas-container {
-  mask-image: radial-gradient(circle at center, black 60%, transparent 100%);
+.transform-3d {
+  transform-style: preserve-3d;
 }
 
 /* Custom Scrollbar */
@@ -88,7 +71,7 @@ body[data-atmosphere="home"] {
   background: transparent;
 }
 
-::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-scrollbar-thumb {
   background: rgba(44, 44, 44, 0.1);
   border-radius: 10px;
 }

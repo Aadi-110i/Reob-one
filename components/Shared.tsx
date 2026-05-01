@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ShoppingBag, Moon, Sun, Wind } from "lucide-react";
-import { useState, useEffect } from "react";
+import { ShoppingBag } from "lucide-react";
 
 const links = [
   { name: "Collection", href: "/collection" },
@@ -14,11 +13,6 @@ const links = [
 
 export function Navbar() {
   const pathname = usePathname();
-  const [atmosphere, setAtmosphere] = useState<"studio" | "nature" | "home">("home");
-
-  useEffect(() => {
-    document.body.setAttribute("data-atmosphere", atmosphere);
-  }, [atmosphere]);
 
   return (
     <nav className="fixed w-full z-50 py-10 px-6 md:px-12 pointer-events-none">
@@ -28,8 +22,8 @@ export function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              className={`text-[10px] uppercase tracking-[0.3em] font-bold hover:opacity-50 transition-opacity ${
-                pathname === link.href ? "opacity-100" : "opacity-40"
+              className={`text-[10px] uppercase tracking-[0.3em] font-bold hover:opacity-100 transition-opacity ${
+                pathname === link.href ? "text-[#2c2c2c] opacity-100" : "text-[#2c2c2c] opacity-40"
               }`}
             >
               {link.name}
@@ -38,7 +32,7 @@ export function Navbar() {
         </div>
 
         <Link href="/" className="group text-center">
-          <span className="text-4xl font-serif tracking-[0.2em] uppercase group-hover:italic transition-all duration-700">
+          <span className="text-4xl font-serif tracking-[0.2em] uppercase text-[#2c2c2c] group-hover:italic transition-all duration-700">
             Reob
           </span>
         </Link>
@@ -49,8 +43,8 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-[10px] uppercase tracking-[0.3em] font-bold hover:opacity-50 transition-opacity ${
-                  pathname === link.href ? "opacity-100" : "opacity-40"
+                className={`text-[10px] uppercase tracking-[0.3em] font-bold hover:opacity-100 transition-opacity ${
+                  pathname === link.href ? "text-[#2c2c2c] opacity-100" : "text-[#2c2c2c] opacity-40"
                 }`}
               >
                 {link.name}
@@ -58,21 +52,9 @@ export function Navbar() {
             ))}
           </div>
           
-          <div className="flex items-center gap-6 pl-10 border-l border-current opacity-20">
-            <button 
-              onClick={() => setAtmosphere(atmosphere === "home" ? "studio" : atmosphere === "studio" ? "nature" : "home")}
-              className="opacity-40 hover:opacity-100 transition-opacity flex items-center gap-2 text-[8px] uppercase tracking-widest font-bold pointer-events-auto"
-              aria-label="Toggle Atmosphere"
-            >
-              {atmosphere === "home" && <Sun className="w-4 h-4" />}
-              {atmosphere === "studio" && <Moon className="w-4 h-4" />}
-              {atmosphere === "nature" && <Wind className="w-4 h-4" />}
-              <span className="hidden lg:inline">{atmosphere}</span>
-            </button>
-            <button aria-label="Open Shopping Bag" className="opacity-40 hover:opacity-100 transition-opacity pointer-events-auto">
-              <ShoppingBag className="w-5 h-5" />
-            </button>
-          </div>
+          <button aria-label="Open Shopping Bag" className="text-[#2c2c2c] opacity-40 hover:opacity-100 transition-opacity">
+            <ShoppingBag className="w-5 h-5" />
+          </button>
         </div>
       </div>
     </nav>
@@ -81,7 +63,7 @@ export function Navbar() {
 
 export function Footer() {
   return (
-    <footer className="py-24 px-6 md:px-12 relative overflow-hidden border-t border-current opacity-90">
+    <footer className="bg-[#2c2c2c] text-[#faf9f6] py-24 px-6 md:px-12 relative overflow-hidden">
       <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-20">
         <div className="md:col-span-2 space-y-8">
           <span className="text-4xl font-serif tracking-[0.2em] uppercase">Reob</span>
@@ -108,6 +90,7 @@ export function Footer() {
           <ul className="space-y-4 text-sm font-serif italic">
             <li><Link href="/contact" className="hover:opacity-50 transition-opacity">Contact Us</Link></li>
             <li><Link href="/journal" className="hover:opacity-50 transition-opacity">Our Journal</Link></li>
+            <li><Link href="/craftsmanship" className="hover:opacity-50 transition-opacity">Craftsmanship</Link></li>
             <li><Link href="/about" className="hover:opacity-50 transition-opacity">The Reob Story</Link></li>
           </ul>
         </div>
