@@ -1,26 +1,98 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui;
+  --font-serif: var(--font-serif), ui-serif, Georgia, serif;
+
+  --color-reob-bg: #faf9f6; /* Alabaster/Cream */
+  --color-reob-text: #2c2c2c; /* Soft Black */
+  --color-reob-accent: #8e8d8a; /* Warm Grey */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    @apply font-sans transition-colors duration-1000;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif tracking-tight text-balance;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .reob-link {
+    @apply relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-current after:transition-all after:duration-500 hover:after:w-full;
+  }
+
+  .reob-button {
+    @apply inline-flex items-center justify-center px-10 py-4 border border-current transition-all duration-700 hover:bg-[#2c2c2c] hover:text-[#faf9f6];
+  }
+}
+
+.noise-overlay {
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  opacity: 0.04;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+}
+
+.text-outline {
+  -webkit-text-stroke: 1px currentColor;
+  color: transparent;
+}
+
+/* Atmosphere Styles */
+body[data-atmosphere="studio"] {
+  background-color: #1a1a1a;
+  color: #faf9f6;
+}
+
+body[data-atmosphere="studio"] .noise-overlay {
+  opacity: 0.08;
+}
+
+body[data-atmosphere="nature"] {
+  background-color: #f0f2ed;
+  color: #2c3e2d;
+}
+
+body[data-atmosphere="nature"] .noise-overlay {
+  background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+  opacity: 0.1;
+}
+
+body[data-atmosphere="home"] {
+  background-color: #faf9f6;
+  color: #2c2c2c;
+}
+
+/* 3D Container Shadow */
+.canvas-container {
+  mask-image: radial-gradient(circle at center, black 60%, transparent 100%);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(44, 44, 44, 0.1);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(44, 44, 44, 0.3);
 }
