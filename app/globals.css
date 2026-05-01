@@ -36,30 +36,11 @@
 
 .noise-overlay {
   background-image: url("https://grainy-gradients.vercel.app/noise.svg");
-  opacity: 0.04;
+  opacity: 0.03;
   pointer-events: none;
-  mix-blend-mode: multiply;
   position: fixed;
   inset: 0;
   z-index: 100;
-}
-
-.text-outline {
-  -webkit-text-stroke: 1px #2c2c2c;
-  color: transparent;
-}
-
-/* 3D Perspective Utilities */
-.perspective-1000 {
-  perspective: 1000px;
-}
-
-.perspective-2000 {
-  perspective: 2000px;
-}
-
-.transform-3d {
-  transform-style: preserve-3d;
 }
 
 /* Custom Scrollbar */
@@ -71,11 +52,7 @@
   background: transparent;
 }
 
-::-webkit-scrollbar-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
   background: rgba(44, 44, 44, 0.1);
   border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(44, 44, 44, 0.3);
 }

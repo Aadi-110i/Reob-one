@@ -63,7 +63,7 @@ export function Navbar() {
 
 export function Footer() {
   return (
-    <footer className="bg-[#2c2c2c] text-[#faf9f6] py-24 px-6 md:px-12 relative overflow-hidden">
+    <footer className="bg-[#2c2c2c] text-[#faf9f6] py-24 px-6 md:px-12">
       <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-20">
         <div className="md:col-span-2 space-y-8">
           <span className="text-4xl font-serif tracking-[0.2em] uppercase">Reob</span>
@@ -97,11 +97,7 @@ export function Footer() {
       </div>
       <div className="max-w-7xl mx-auto pt-20 flex flex-col md:flex-row justify-between gap-8 text-[8px] uppercase tracking-[0.4em] opacity-20">
         <p>© 2026 Reob Audio. Handcrafted Integrity.</p>
-        <div className="flex gap-10">
-          <p>Technical SEO Excellence</p>
-          <p>Privacy Policy</p>
-          <p>Terms of Service</p>
-        </div>
+        <p>Built with Technical SEO Excellence</p>
       </div>
     </footer>
   );
