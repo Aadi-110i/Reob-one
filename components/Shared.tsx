@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ShoppingBag } from "lucide-react";
+import { ShoppingBag, User, Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
 
 const links = [
   { name: "Collection", href: "/collection" },
@@ -13,58 +15,135 @@ const links = [
 
 export function Navbar() {
   const pathname = usePathname();
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <nav className="fixed w-full z-50 py-10 px-6 md:px-12 pointer-events-none">
-      <div className="max-w-7xl mx-auto flex items-center justify-between pointer-events-auto">
-        <div className="flex-1 hidden md:flex gap-10">
-          {links.slice(0, 2).map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`text-[10px] uppercase tracking-[0.3em] font-bold hover:opacity-100 transition-opacity ${
-                pathname === link.href ? "text-[#2c2c2c] opacity-100" : "text-[#2c2c2c] opacity-40"
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
-        </div>
+    <>
+      <nav className="fixed top-8 w-full z-[100] flex justify-center px-6 pointer-events-none">
+        <motion.div 
+          initial={false}
+          animate={{
+            backgroundColor: scrolled ? "rgba(255, 255, 255, 0.4)" : "rgba(255, 255, 255, 0.1)",
+            boxShadow: scrolled ? "0 8px 32px 0 rgba(31, 38, 135, 0.07)" : "0 4px 16px 0 rgba(31, 38, 135, 0.02)",
+          }}
+          className="w-full max-w-4xl backdrop-blur-3xl border border-white/20 rounded-full px-8 py-3 flex items-center justify-between pointer-events-auto transition-all duration-700"
+        >
+          {/* Logo - Minimal & iOS Style */}
+          <Link href="/" className="z-10 group">
+             <span className="text-lg font-serif tracking-[0.2em] uppercase text-[#2c2c2c] group-hover:italic transition-all">
+              Reob
+            </span>
+          </Link>
 
-        <Link href="/" className="group text-center">
-          <span className="text-4xl font-serif tracking-[0.2em] uppercase text-[#2c2c2c] group-hover:italic transition-all duration-700">
-            Reob
-          </span>
-        </Link>
-
-        <div className="flex-1 flex justify-end items-center gap-10">
-          <div className="hidden md:flex gap-10">
-            {links.slice(2).map((link) => (
+          {/* Navigation Links - Centered Pill Content */}
+          <div className="hidden md:flex items-center gap-10">
+            {links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-[10px] uppercase tracking-[0.3em] font-bold hover:opacity-100 transition-opacity ${
-                  pathname === link.href ? "text-[#2c2c2c] opacity-100" : "text-[#2c2c2c] opacity-40"
+                className={`text-[9px] uppercase tracking-[0.25em] font-bold hover:text-[#2c2c2c] transition-all relative ${
+                  pathname === link.href ? "text-[#2c2c2c]" : "text-[#2c2c2c]/40"
                 }`}
               >
                 {link.name}
+                {pathname === link.href && (
+                  <motion.div 
+                    layoutId="nav-dot"
+                    className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 bg-[#2c2c2c] rounded-full"
+                  />
+                )}
               </Link>
             ))}
           </div>
-          
-          <button aria-label="Open Shopping Bag" className="text-[#2c2c2c] opacity-40 hover:opacity-100 transition-opacity">
-            <ShoppingBag className="w-5 h-5" />
-          </button>
-        </div>
-      </div>
-    </nav>
+
+          {/* iOS Style Action Group */}
+          <div className="flex items-center gap-5 z-10">
+            <Link href="/login" className="text-[#2c2c2c]/60 hover:text-[#2c2c2c] transition-colors">
+              <User className="w-4 h-4 stroke-[1.5px]" />
+            </Link>
+            <Link href="/cart" className="relative text-[#2c2c2c]/60 hover:text-[#2c2c2c] transition-colors">
+              <ShoppingBag className="w-4 h-4 stroke-[1.5px]" />
+              <span className="absolute -top-1 -right-1 text-[7px] font-bold">0</span>
+            </Link>
+            <button 
+              onClick={() => setMobileMenuOpen(true)}
+              className="md:hidden text-[#2c2c2c]/60 hover:text-[#2c2c2c] transition-colors"
+            >
+              <Menu className="w-5 h-5 stroke-[1.5px]" />
+            </button>
+          </div>
+        </motion.div>
+      </nav>
+
+      {/* Narrative Mobile Menu - Full Blur Overlay */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+            animate={{ opacity: 1, backdropFilter: "blur(40px)" }}
+            exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
+            className="fixed inset-0 z-[200] bg-white/60 flex flex-col p-12"
+          >
+            <div className="flex justify-between items-center w-full">
+              <span className="text-2xl font-serif tracking-[0.2em] uppercase text-[#2c2c2c]">Reob</span>
+              <button onClick={() => setMobileMenuOpen(false)} className="text-[#2c2c2c] hover:opacity-50 transition-opacity">
+                <X className="w-8 h-8 stroke-[1px]" />
+              </button>
+            </div>
+
+            <div className="flex-1 flex flex-col justify-center gap-6">
+              {links.map((link, i) => (
+                <motion.div
+                  key={link.href}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                >
+                  <Link 
+                    href={link.href} 
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="text-6xl font-serif italic text-[#2c2c2c] hover:translate-x-4 transition-transform duration-500 block"
+                  >
+                    {link.name}
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+
+            <footer className="pt-12 border-t border-[#2c2c2c]/10 flex justify-between items-end">
+              <div className="space-y-2">
+                <p className="text-[8px] uppercase tracking-widest font-bold opacity-30 text-[#2c2c2c]">The Narrative</p>
+                <Link href="/login" onClick={() => setMobileMenuOpen(false)} className="text-sm font-serif italic text-[#2c2c2c]">Account Access</Link>
+              </div>
+              <div className="flex gap-6">
+                <a href="#" className="text-[8px] uppercase tracking-widest font-bold opacity-30">IG</a>
+                <a href="#" className="text-[8px] uppercase tracking-widest font-bold opacity-30">TW</a>
+              </div>
+            </footer>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
 
 export function Footer() {
   return (
-    <footer className="bg-[#2c2c2c] text-[#faf9f6] py-24 px-6 md:px-12">
-      <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-20">
+    <footer className="bg-[#2c2c2c] text-[#faf9f6] py-24 px-6 md:px-12 perspective-1000 overflow-hidden mt-12">
+      <motion.div 
+        initial={{ opacity: 0, rotateX: 10, y: 40 }}
+        whileInView={{ opacity: 1, rotateX: 0, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
+        className="max-w-7xl mx-auto grid md:grid-cols-4 gap-20 transform-3d"
+      >
         <div className="md:col-span-2 space-y-8">
           <span className="text-4xl font-serif tracking-[0.2em] uppercase">Reob</span>
           <p className="text-sm opacity-50 max-w-sm leading-relaxed font-light italic">
@@ -94,7 +173,7 @@ export function Footer() {
             <li><Link href="/about" className="hover:opacity-50 transition-opacity">The Reob Story</Link></li>
           </ul>
         </div>
-      </div>
+      </motion.div>
       <div className="max-w-7xl mx-auto pt-20 flex flex-col md:flex-row justify-between gap-8 text-[8px] uppercase tracking-[0.4em] opacity-20">
         <p>© 2026 Reob Audio. Handcrafted Integrity.</p>
         <p>Built with Technical SEO Excellence</p>
