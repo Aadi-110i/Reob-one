@@ -125,18 +125,34 @@ export default function Collection() {
               <span>/</span>
               <span>Collection</span>
             </div>
-            <motion.h1 
-              initial={{ opacity: 0, rotateX: -20, y: 30 }}
-              whileInView={{ opacity: 1, rotateX: 0, y: 0 }}
-              viewport={{ once: true }}
-              className="text-7xl md:text-9xl font-serif text-[#2c2c2c]"
-            >
-              The <br /> 
-              <span className="italic font-light">Collection.</span>
-            </motion.h1>
-            <p className="text-xl md:text-2xl opacity-60 leading-relaxed font-light max-w-2xl text-[#2c2c2c]">
-              A curated ecosystem of high-fidelity audio, from laboratory-grade drivers to artisanal home systems. Every piece is a testament to our pursuit of sonic perfection.
-            </p>
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-12">
+              <div className="space-y-12 max-w-2xl">
+                <motion.h1 
+                  initial={{ opacity: 0, rotateX: -20, y: 30 }}
+                  whileInView={{ opacity: 1, rotateX: 0, y: 0 }}
+                  viewport={{ once: true }}
+                  className="text-7xl md:text-9xl font-serif text-[#2c2c2c]"
+                >
+                  The <br /> 
+                  <span className="italic font-light">Collection.</span>
+                </motion.h1>
+                <p className="text-xl md:text-2xl opacity-60 leading-relaxed font-light text-[#2c2c2c]">
+                  A curated ecosystem of high-fidelity audio, from laboratory-grade drivers to artisanal home systems.
+                </p>
+              </div>
+
+              {/* Filter & Sort Bar */}
+              <div className="flex items-center gap-6 pb-4">
+                <div className="flex items-center gap-2 border-b border-[#2c2c2c]/10 pb-2 cursor-pointer group hover:border-[#2c2c2c] transition-colors">
+                  <span className="text-[10px] font-bold uppercase tracking-widest opacity-30 group-hover:opacity-100 transition-opacity">Filter</span>
+                  <span className="text-[10px] font-bold uppercase tracking-widest opacity-30 group-hover:opacity-100">(All)</span>
+                </div>
+                <div className="flex items-center gap-2 border-b border-[#2c2c2c]/10 pb-2 cursor-pointer group hover:border-[#2c2c2c] transition-colors">
+                  <span className="text-[10px] font-bold uppercase tracking-widest opacity-30 group-hover:opacity-100 transition-opacity">Sort</span>
+                  <span className="text-[10px] font-bold uppercase tracking-widest opacity-30 group-hover:opacity-100">(Featured)</span>
+                </div>
+              </div>
+            </div>
           </header>
 
           <div className="space-y-60">

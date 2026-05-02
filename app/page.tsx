@@ -4,6 +4,9 @@ import { motion } from "framer-motion";
 import { Navbar, Footer } from "@/components/Shared";
 import { ArrowRight, Star, Play, Mic2, Cpu, Globe } from "lucide-react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+
+const HeroScene = dynamic(() => import("@/components/Scene"), { ssr: false });
 
 export default function Home() {
   const schemaData = {
@@ -34,6 +37,7 @@ export default function Home() {
       <main className="perspective-1000">
         {/* Hero Section */}
         <section className="relative h-screen flex items-center justify-center px-6 overflow-hidden">
+          <HeroScene />
           <motion.div 
             initial={{ opacity: 0, y: 40, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -108,6 +112,39 @@ export default function Home() {
           </motion.div>
         </section>
 
+        {/* Featured Collections */}
+        <section className="py-40 px-6 md:px-12">
+          <div className="max-w-7xl mx-auto space-y-24">
+            <header className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+              <div className="space-y-4">
+                <span className="text-[10px] uppercase tracking-[0.3em] font-bold opacity-30 text-[#2c2c2c]">Curated Series</span>
+                <h2 className="text-5xl md:text-7xl font-serif italic text-[#2c2c2c]">Shop by Category</h2>
+              </div>
+              <Link href="/collection" className="text-[10px] uppercase tracking-widest font-bold reob-link flex items-center gap-2">
+                View All <ArrowRight className="w-3 h-3" />
+              </Link>
+            </header>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              <CategoryCard 
+                title="Headphones" 
+                image="https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&q=80&w=800"
+                href="/collection?cat=headphones"
+              />
+              <CategoryCard 
+                title="Speakers" 
+                image="https://images.unsplash.com/photo-1594106190274-b4f75c7b246c?auto=format&fit=crop&q=80&w=800"
+                href="/collection?cat=speakers"
+              />
+              <CategoryCard 
+                title="Electronics" 
+                image="https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&q=80&w=800"
+                href="/collection?cat=electronics"
+              />
+            </div>
+          </div>
+        </section>
+
         {/* Product Focus Section */}
         <section className="py-40 px-6 md:px-12 bg-[#faf9f6]">
           <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-32 items-center">
@@ -152,6 +189,43 @@ export default function Home() {
           </div>
         </section>
 
+        {/* New Arrivals Grid */}
+        <section className="py-40 px-6 md:px-12 bg-white rounded-[4rem] mx-6 my-20">
+          <div className="max-w-7xl mx-auto space-y-24">
+            <div className="text-center space-y-4">
+              <span className="text-[10px] uppercase tracking-[0.5em] font-bold opacity-30 text-[#2c2c2c]">The Latest Releases</span>
+              <h2 className="text-6xl md:text-8xl font-serif text-[#2c2c2c]">New <span className="italic font-light">Arrivals.</span></h2>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              <ProductCard 
+                name="Reob Studio Mini" 
+                price="$650.00" 
+                image="https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&q=80&w=600"
+                category="Desktop Monitors"
+              />
+              <ProductCard 
+                name="Reob One Pro" 
+                price="$750.00" 
+                image="https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&q=80&w=600"
+                category="Reference Monitors"
+              />
+              <ProductCard 
+                name="Reob Amp" 
+                price="$850.00" 
+                image="https://images.unsplash.com/photo-1558537348-c0f8e733989b?auto=format&fit=crop&q=80&w=600"
+                category="Tube Amplifier"
+              />
+              <ProductCard 
+                name="Reob Stand" 
+                price="$120.00" 
+                image="https://images.unsplash.com/photo-1585298723682-7115561c51b7?auto=format&fit=crop&q=80&w=600"
+                category="Walnut Stand"
+              />
+            </div>
+          </div>
+        </section>
+
         {/* Social Proof */}
         <section className="py-40 px-6">
           <motion.div 
@@ -183,6 +257,36 @@ export default function Home() {
           </motion.div>
         </section>
 
+        {/* Newsletter Section */}
+        <section className="py-40 px-6 md:px-12">
+          <motion.div 
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-7xl mx-auto bg-[#2c2c2c] rounded-[4rem] p-12 md:p-32 text-[#faf9f6] flex flex-col md:flex-row items-center justify-between gap-20"
+          >
+            <div className="space-y-8 max-w-xl text-center md:text-left">
+              <h2 className="text-5xl md:text-7xl font-serif italic leading-tight">Join the <br /> Narrative.</h2>
+              <p className="text-sm opacity-40 uppercase tracking-widest leading-loose">
+                Subscribe to receive early access to limited drops, acoustic deep-dives, and technical updates.
+              </p>
+            </div>
+            <form className="w-full max-w-md space-y-6" onSubmit={(e) => e.preventDefault()}>
+              <div className="relative group">
+                <input 
+                  type="email" 
+                  placeholder="EMAIL ADDRESS" 
+                  className="w-full bg-white/5 border border-white/10 rounded-full py-6 px-8 text-[10px] font-bold tracking-widest placeholder:text-white/20 focus:bg-white/10 transition-all outline-none"
+                />
+                <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 bg-[#faf9f6] text-[#2c2c2c] p-4 rounded-full hover:scale-110 transition-transform">
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+              <p className="text-[8px] uppercase tracking-widest opacity-20 text-center md:text-left">By subscribing, you agree to our Privacy Policy.</p>
+            </form>
+          </motion.div>
+        </section>
+
         {/* CTA */}
         <section className="py-60 px-6 text-center bg-[#2c2c2c] text-[#faf9f6]">
           <motion.div 
@@ -204,6 +308,46 @@ export default function Home() {
       </main>
 
       <Footer />
+    </div>
+  );
+}
+
+function CategoryCard({ title, image, href }: { title: string, image: string, href: string }) {
+  return (
+    <Link href={href} className="group relative aspect-square rounded-[3rem] overflow-hidden bg-[#2c2c2c]/5 transform-3d">
+      <img src={image} alt={title} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 opacity-80 group-hover:opacity-100" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#2c2c2c]/60 to-transparent" />
+      <div className="absolute bottom-12 left-12 space-y-2">
+        <h3 className="text-3xl font-serif italic text-white">{title}</h3>
+        <span className="text-[10px] uppercase tracking-widest font-bold text-white/60 group-hover:text-white transition-colors flex items-center gap-2">
+          Shop Now <ArrowRight className="w-3 h-3" />
+        </span>
+      </div>
+    </Link>
+  );
+}
+
+function ProductCard({ name, price, image, category }: { name: string, price: string, image: string, category: string }) {
+  return (
+    <div className="group space-y-6 cursor-pointer">
+      <div className="aspect-[4/5] bg-[#2c2c2c]/5 rounded-3xl overflow-hidden relative shadow-sm group-hover:shadow-2xl transition-all duration-700">
+        <img src={image} alt={name} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
+        <div className="absolute top-6 left-6">
+          <span className="bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full text-[8px] font-bold uppercase tracking-widest text-[#2c2c2c]">New</span>
+        </div>
+        <div className="absolute inset-0 bg-[#2c2c2c]/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
+          <Link href="/collection/reob-one" className="reob-button text-white border-white scale-90 group-hover:scale-100 transition-transform">View Detail</Link>
+        </div>
+      </div>
+      <div className="space-y-2 px-2">
+        <div className="flex justify-between items-start">
+          <div className="space-y-1">
+            <h3 className="text-xl font-serif italic text-[#2c2c2c]">{name}</h3>
+            <p className="text-[8px] uppercase tracking-widest font-bold opacity-30 text-[#2c2c2c]">{category}</p>
+          </div>
+          <span className="text-xs font-bold opacity-60 text-[#2c2c2c]">{price}</span>
+        </div>
+      </div>
     </div>
   );
 }

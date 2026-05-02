@@ -4,6 +4,9 @@ import { Navbar, Footer } from "@/components/Shared";
 import { motion } from "framer-motion";
 import { Star, Shield, Truck, RotateCcw, ArrowRight, Check } from "lucide-react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+
+const HeroScene = dynamic(() => import("@/components/Scene"), { ssr: false });
 
 export default function ProductDetail() {
   const product = {
@@ -126,8 +129,11 @@ export default function ProductDetail() {
           </div>
 
           {/* Technical Specs Section */}
-          <section className="mt-40 py-32 border-y border-current/10">
-            <div className="grid lg:grid-cols-3 gap-20">
+          <section className="mt-40 py-32 border-y border-current/10 relative overflow-hidden">
+            <div className="absolute inset-0 opacity-10 pointer-events-none">
+               <HeroScene />
+            </div>
+            <div className="grid lg:grid-cols-3 gap-20 relative z-10">
               <div className="space-y-6">
                 <h2 className="text-4xl font-serif italic">Technical <br /> Specifications.</h2>
                 <p className="text-sm opacity-50 leading-relaxed">
@@ -146,7 +152,7 @@ export default function ProductDetail() {
           </section>
 
           {/* Narrative Section */}
-          <section className="mt-40 grid lg:grid-cols-2 gap-32 items-center">
+          <section className="mt-40 grid lg:grid-cols-2 gap-32 items-center pb-40 border-b border-current/10">
             <div className="order-2 lg:order-1 space-y-12">
               <h2 className="text-5xl md:text-7xl font-serif leading-tight">Handcrafted <br /> <span className="italic font-light">Japanese Precision.</span></h2>
               <p className="text-lg opacity-70 leading-relaxed font-light">
@@ -161,6 +167,35 @@ export default function ProductDetail() {
                 src="https://images.unsplash.com/photo-1544450181-29597f2ff53e?auto=format&fit=crop&q=80&w=1000" 
                 alt="Craftsmanship" 
                 className="w-full h-full object-cover"
+              />
+            </div>
+          </section>
+
+          {/* Related Products */}
+          <section className="mt-40 space-y-24">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+              <div className="space-y-4">
+                <span className="text-[10px] uppercase tracking-[0.3em] font-bold opacity-30">Recommended</span>
+                <h2 className="text-5xl md:text-7xl font-serif italic">Complete the <br /> System.</h2>
+              </div>
+              <Link href="/collection" className="text-[10px] uppercase tracking-widest font-bold border-b border-current pb-2">View Entire Collection</Link>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-12">
+              <RelatedProduct 
+                name="Reob Amp" 
+                price="$850.00" 
+                image="https://images.unsplash.com/photo-1558537348-c0f8e733989b?auto=format&fit=crop&q=80&w=800"
+              />
+              <RelatedProduct 
+                name="Reob Stand" 
+                price="$120.00" 
+                image="https://images.unsplash.com/photo-1585298723682-7115561c51b7?auto=format&fit=crop&q=80&w=800"
+              />
+              <RelatedProduct 
+                name="Reob Cable" 
+                price="$150.00" 
+                image="https://images.unsplash.com/photo-1563330232-57114bb0823c?auto=format&fit=crop&q=80&w=800"
               />
             </div>
           </section>
@@ -180,3 +215,22 @@ function TrustBadge({ icon, label }: { icon: React.ReactNode, label: string }) {
     </div>
   );
 }
+
+function RelatedProduct({ name, price, image }: { name: string, price: string, image: string }) {
+  return (
+    <Link href="/collection/reob-one" className="group space-y-6 block">
+      <div className="aspect-[4/5] rounded-2xl overflow-hidden bg-current/5 relative">
+        <img src={image} alt={name} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
+        <div className="absolute inset-0 bg-current/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+      </div>
+      <div className="flex justify-between items-start px-2">
+        <div className="space-y-1">
+          <h3 className="text-2xl font-serif italic">{name}</h3>
+          <p className="text-[10px] uppercase tracking-widest font-bold opacity-30">Essential Accessory</p>
+        </div>
+        <p className="text-sm font-bold opacity-60">{price}</p>
+      </div>
+    </Link>
+  );
+}
+
