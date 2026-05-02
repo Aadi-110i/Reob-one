@@ -35,37 +35,55 @@ export default function Home() {
       />
 
       <main className="perspective-1000">
-        {/* Hero Section */}
-        <section className="relative h-screen flex items-center justify-center px-6 overflow-hidden">
-          <HeroScene />
-          <motion.div 
-            initial={{ opacity: 0, y: 40, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 1.5, ease: "easeOut" }}
-            className="text-center space-y-12 z-10"
-          >
-            <span className="text-[10px] uppercase tracking-[0.5em] font-bold opacity-30">
-              The Art of Sustainable Sound
-            </span>
-            <h1 className="text-[12vw] font-serif leading-none tracking-tighter uppercase text-[#2c2c2c]">
-              Reob One
-            </h1>
-            <p className="text-sm md:text-base font-medium uppercase tracking-widest opacity-50 max-w-md mx-auto leading-loose text-[#2c2c2c]">
-              Handcrafted in limited editions using reclaimed walnut and high-fidelity Japanese drivers.
-            </p>
-            <div className="flex flex-col md:flex-row items-center justify-center gap-10 pt-10">
-              <Link href="/collection" className="reob-button uppercase text-[10px] font-bold tracking-widest">
-                Discover Collection
-              </Link>
-              <button className="text-[10px] uppercase tracking-widest font-bold reob-link group flex items-center gap-2">
-                <Play className="w-3 h-3 fill-current" /> Watch the Film
-              </button>
-            </div>
-          </motion.div>
+        {/* Hero Section - Editorial Split Layout */}
+        <section className="relative h-screen flex items-center px-6 md:px-20 overflow-hidden pt-20">
+          <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-20 items-center">
+            {/* Left Column: Narrative Content */}
+            <motion.div 
+              initial={{ opacity: 0, x: -60 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1.5, ease: "easeOut" }}
+              className="z-10 space-y-12"
+            >
+              <div className="space-y-4">
+                <span className="text-[10px] uppercase tracking-[0.5em] font-bold opacity-30">
+                  The Art of Sustainable Sound
+                </span>
+                <h1 className="text-7xl md:text-[8vw] font-serif leading-none tracking-tighter uppercase text-[#2c2c2c]">
+                  Reob <br /> 
+                  <span className="italic font-light opacity-50">One.</span>
+                </h1>
+              </div>
+              
+              <p className="text-sm md:text-base font-medium uppercase tracking-widest opacity-50 max-w-md leading-loose text-[#2c2c2c]">
+                Handcrafted in limited editions using reclaimed walnut and laboratory-grade beryllium drivers.
+              </p>
 
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-5">
-            <div className="w-[70vw] h-[70vw] border border-[#2c2c2c] rounded-full" />
-            <div className="absolute w-[50vw] h-[50vw] border border-[#2c2c2c] rounded-full" />
+              <div className="flex flex-col sm:flex-row items-start gap-10 pt-4">
+                <Link href="/collection" className="reob-button uppercase text-[10px] font-bold tracking-widest">
+                  Discover Collection
+                </Link>
+                <button className="text-[10px] uppercase tracking-widest font-bold reob-link group flex items-center gap-2">
+                  <Play className="w-3 h-3 fill-current" /> Watch the Film
+                </button>
+              </div>
+
+              {/* Quick Stats Overlaying Background */}
+              <div className="grid grid-cols-2 gap-12 pt-12 border-t border-[#2c2c2c]/5">
+                <StatItem label="Material" value="Walnut" />
+                <StatItem label="Precision" value="0.01mm" />
+              </div>
+            </motion.div>
+
+            {/* Right Column: Interactive 3D Canvas */}
+            <div className="absolute inset-0 lg:relative lg:inset-auto h-full w-full lg:h-[80vh] flex items-center justify-center">
+              <HeroScene />
+            </div>
+          </div>
+
+          {/* Background Branding Elements */}
+          <div className="absolute bottom-20 left-20 pointer-events-none hidden md:block">
+             <span className="text-[15vw] font-serif uppercase opacity-[0.02] select-none">Integrity</span>
           </div>
         </section>
 

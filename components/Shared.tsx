@@ -27,14 +27,9 @@ export function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-8 w-full z-[100] flex justify-center px-6 pointer-events-none">
+      <nav className="absolute top-8 w-full z-[100] flex justify-center px-6 pointer-events-none">
         <motion.div 
-          initial={false}
-          animate={{
-            backgroundColor: scrolled ? "rgba(255, 255, 255, 0.4)" : "rgba(255, 255, 255, 0.1)",
-            boxShadow: scrolled ? "0 8px 32px 0 rgba(31, 38, 135, 0.07)" : "0 4px 16px 0 rgba(31, 38, 135, 0.02)",
-          }}
-          className="w-full max-w-5xl backdrop-blur-3xl border border-white/20 rounded-full px-8 py-3 flex items-center justify-between pointer-events-auto transition-all duration-700"
+          className="w-full max-w-5xl backdrop-blur-3xl border border-white/20 rounded-full px-8 py-3 flex items-center justify-between pointer-events-auto transition-all duration-700 bg-white/10 shadow-[0_4px_16px_0_rgba(31,38,135,0.02)]"
         >
           {/* Logo - Minimal & iOS Style */}
           <Link href="/" className="z-10 group">

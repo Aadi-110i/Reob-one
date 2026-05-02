@@ -59,15 +59,15 @@ function HeadphoneModel() {
 
 export default function HeroScene() {
   return (
-    <div className="absolute inset-0 z-0 opacity-100 pointer-events-none">
+    <div className="absolute inset-0 z-0 opacity-100 pointer-events-auto">
       <Canvas dpr={[1, 2]} shadows gl={{ antialias: true, preserveDrawingBuffer: true }}>
         <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={35} />
         <Suspense fallback={<Loader />}>
           <Stage 
-            intensity={0.5} 
+            intensity={0.6} 
             environment="studio" 
             shadows={{ type: 'contact', opacity: 0.2, blur: 3 }} 
-            adjustCamera={1.5}
+            adjustCamera={1.2}
           >
             <HeadphoneModel />
           </Stage>
@@ -78,7 +78,7 @@ export default function HeroScene() {
           enablePan={false} 
           enableRotate={true}
           autoRotate
-          autoRotateSpeed={0.5}
+          autoRotateSpeed={0.8}
         />
       </Canvas>
     </div>
