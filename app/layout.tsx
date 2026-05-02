@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Bodoni_Moda, Inter } from "next/font/google";
 import "./globals.css";
+import SmoothScroll from "@/components/SmoothScroll";
 
 const bodoni = Bodoni_Moda({
   subsets: ["latin"],
@@ -36,6 +37,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`${inter.variable} ${bodoni.variable} antialiased bg-[#faf9f6] text-[#2c2c2c] selection:bg-[#2c2c2c] selection:text-white`}>
+        <SmoothScroll />
         {children}
       </body>
     </html>
